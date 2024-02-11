@@ -58,6 +58,11 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel2.setText("Datos de mascotas:");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +173,30 @@ public class VerDatos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tablaMascotas.getRowCount() > 0) {
+            //controlo que se haya seleccionado a una mascota
+            if (tablaMascotas.getSelectedRow() != -1) {
+                //obtengo el id de la mascota a editar
+                int num_cliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0)));
+                
+                ModificarDatos pantallaModif = new ModificarDatos(num_cliente);
+                pantallaModif.setVisible(true);
+                pantallaModif.setLocationRelativeTo(null);
+                
+                 this.dispose();
+
+            } else {
+                mostrarMensaje("No seleccionó niguna mascota", "Error", "Error al eliminar");
+
+            }
+        } else {
+            mostrarMensaje("No hay nada para eliminar en la tabla", "Error", "Error al eliminar");
+
+        }
+       
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
 
         JOptionPane optionPane = new JOptionPane(mensaje);
@@ -194,7 +223,7 @@ public class VerDatos extends javax.swing.JFrame {
     private javax.swing.JTable tablaMascotas;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla() {
+    public void cargarTabla() {
         //definir el modelo de la tabla
         DefaultTableModel modeloTabla = new DefaultTableModel() {
 
